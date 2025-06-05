@@ -11,14 +11,14 @@ class Generator:
 
         self.generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
-        def generate(self, query_text, image_description, contexts):
-            prompt = f"""Patient report:\n{query_text}
+    def generate(self, query_text, image_description, contexts):
+        prompt = f"""Patient report:\n{query_text}
 
-        Image Findings:\n{image_description}
+    Image Findings:\n{image_description}
 
-        Similar Cases:\n"""
-            for i, ctx in enumerate(contexts):
-                prompt += f"Case {i+1}: {ctx['text']}\nDiagnosis: {ctx['label']}\n\n"
+    Similar Cases:\n"""
+        for i, ctx in enumerate(contexts):
+            prompt += f"Case {i+1}: {ctx['text']}\nDiagnosis: {ctx['label']}\n\n"
 
-            prompt += "Based on the report, image, and similar cases, provide a likely diagnosis:\n"
-            return self.generator(prompt, max_length=512)[0]["generated_text"]
+        prompt += "Based on the report, image, and similar cases, provide a likely diagnosis:\n"
+        return self.generator(prompt, max_length=512)[0]["generated_text"]
