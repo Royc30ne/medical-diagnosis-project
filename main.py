@@ -2,6 +2,7 @@ from models.text_encoder import TextEncoder
 from models.image_encoder import ImageEncoder
 from models.retriever import Retriever
 from models.generator import Generator
+from models.image_captioner import ImageCaptioner
 
 import os
 import huggingface_hub
@@ -27,16 +28,17 @@ def diagnose_case(text_path, image_path):
     image_encoder = ImageEncoder()
     retriever = Retriever([es_host], es_api_key)
     generator = Generator()
+    image_captioner = ImageCaptioner()
 
     print("Models initialized.")
     # Encode text and image
     print("Encoding text and image...")
     text_emb = text_encoder.encode([patient_text])
-    image_emb = image_encoder.encode(image_path)
+    image_desc = image_captioner.describe(image_path)
 
     combined_query = "Symptom & history: " + patient_text
     similar_cases = retriever.search(combined_query)
-    output = generator.generate(combined_query, similar_cases)
+    output = generator.generate(combined_query, image_desc, similar_cases)
 
     print("Diagnosis Suggestion:\n", output)
 
