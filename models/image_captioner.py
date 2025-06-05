@@ -3,7 +3,7 @@ from PIL import Image
 import torch
 
 class ImageCaptioner:
-    def __init__(self, model_name="vinbigdata/Chest-Xray-ResNet50"):
+    def __init__(self, model_name="nickmuchi/vit-finetuned-chest-xray-pneumonia"):
         self.processor = AutoProcessor.from_pretrained(model_name)
         self.model = AutoModelForImageClassification.from_pretrained(model_name)
 
