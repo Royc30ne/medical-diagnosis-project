@@ -1,8 +1,15 @@
-from transformers import pipeline
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig
 
 class Generator:
     def __init__(self):
-        self.generator = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.3")
+        model_id = "mistralai/Mistral-7B-Instruct-v0.3"
+        bnb_config = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=torch.float16)
+
+        tokenizer = AutoTokenizer.from_pretrained(model_id)
+        model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=bnb_config, device_map="auto")
+
+        self.generator = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
     def generate(self, query, contexts):
         prompt = "Patient report:\n" + query + "\n\nSimilar Cases:\n"
