@@ -29,11 +29,11 @@ huggingface_hub.login(token=huggingface_token)
 
 #     # Initialize models
 #     print("Initializing models...")
-#     text_encoder = TextEncoder()
-#     image_encoder = ImageEncoder()
-#     retriever = Retriever([es_host], es_api_key)
-#     generator = Generator()
-#     image_captioner = ImageCaptioner()
+    # text_encoder = TextEncoder()
+    # image_encoder = ImageEncoder()
+    # retriever = Retriever([es_host], es_api_key)
+    # generator = Generator()
+    # image_captioner = ImageCaptioner()
 
 #     print("Models initialized.")
 #     # Encode text and image
@@ -54,9 +54,9 @@ app = FastAPI()
 # Load models once
 text_encoder = TextEncoder()
 image_encoder = ImageEncoder()
-image_captioner = ImageCaptioner()
-retriever = Retriever()
+retriever = Retriever([es_host], es_api_key)
 generator = Generator()
+image_captioner = ImageCaptioner()
 
 @app.post("/diagnose/")
 async def diagnose(
