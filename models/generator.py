@@ -20,5 +20,5 @@ class Generator:
         for i, ctx in enumerate(contexts):
             prompt += f"Case {i+1}: {ctx['text']}\nDiagnosis: {ctx['label']}\n\n"
 
-        prompt += "Based on the report, image, and similar cases, provide a likely diagnosis:\n"
+        prompt += "Based on the report, image, and similar cases, provide a likely diagnosis and recommend a treatment plan:\n"
         return self.generator(prompt, max_length=512)[0]["generated_text"]
