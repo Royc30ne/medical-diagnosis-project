@@ -36,7 +36,7 @@ conda activate med
 pip install -r requirements.txt
 ```
 
-### 2.Create .env File
+### 2. Create .env File
 
 You must create a .env file in the project root with your credentials:
 
@@ -50,5 +50,36 @@ ES_API_KEY=your_elasticsearch_api_key
 
 
 ```
-uvicorn api.main:app --host 0.0.0.0 --port 8000
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
+
+### 4. 🔍 API Usage
+
+POST /diagnose/
+
+Send a patient case description and chest X-ray image:
+
+Request (multipart/form-data)
+
+```
+｜Field ｜Type ｜Description ｜
+｜prompt｜ str ｜Patient clinical note / case summary ｜
+｜image ｜file ｜Chest X-ray image (JPG or PNG) ｜
+```
+
+**Example using curl:**
+
+```
+curl -X POST http://localhost:8000/diagnose/ \
+  -F "prompt=Patient presents with chest pain and shortness of breath." \
+  -F "image=@data/images/patient123.jpg"
+```
+
+**Response:**
+
+```
+{
+  "diagnosis": "The patient likely has pleural effusion based on clinical symptoms and X-ray."
+}
 ```
