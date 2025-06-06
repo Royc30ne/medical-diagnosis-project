@@ -1,4 +1,6 @@
 import os
+import tempfile
+import shutil
 import huggingface_hub
 
 from dotenv import load_dotenv
@@ -46,16 +48,6 @@ huggingface_hub.login(token=huggingface_token)
 #     print("Diagnosis Suggestion:\n", output)
 
 # diagnose_case("data/patients/patient123.txt", "data/images/patient123.jpg")
-
-from fastapi import FastAPI, UploadFile, File, Form
-from fastapi.responses import JSONResponse
-from models.text_encoder import TextEncoder
-from models.image_encoder import ImageEncoder
-from models.image_captioner import ImageCaptioner
-from models.retriever import Retriever
-from models.generator import Generator
-import tempfile
-import shutil
 
 app = FastAPI()
 
