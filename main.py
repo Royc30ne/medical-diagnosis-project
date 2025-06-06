@@ -23,32 +23,6 @@ print("Elasticsearch Host:", es_host)
 print("Elasticsearch API Key:", es_api_key)
 huggingface_hub.login(token=huggingface_token)
 
-# def diagnose_case(text_path, image_path):
-#     with open(text_path) as f:
-#         patient_text = f.read()
-
-#     # Initialize models
-#     print("Initializing models...")
-    # text_encoder = TextEncoder()
-    # image_encoder = ImageEncoder()
-    # retriever = Retriever([es_host], es_api_key)
-    # generator = Generator()
-    # image_captioner = ImageCaptioner()
-
-#     print("Models initialized.")
-#     # Encode text and image
-#     print("Encoding text and image...")
-#     text_emb = text_encoder.encode([patient_text])
-#     image_desc = image_captioner.describe(image_path)
-
-#     combined_query = "Symptom & history: " + patient_text
-#     similar_cases = retriever.search(combined_query)
-#     output = generator.generate(combined_query, image_desc, similar_cases)
-
-#     print("Diagnosis Suggestion:\n", output)
-
-# diagnose_case("data/patients/patient123.txt", "data/images/patient123.jpg")
-
 app = FastAPI()
 
 # Load models once
